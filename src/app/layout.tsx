@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Chakra_Petch } from 'next/font/google'
 import './globals.css'
 import { CustomCursor } from '@/components/CustomCursor'
 import { SmoothScroll } from '@/components/SmoothScroll'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
+const chakra = Chakra_Petch({ subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-chakra' })
 
 export const metadata: Metadata = {
   title: 'Other Games | Enter the Otherside',
@@ -28,7 +29,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} cursor-none`}>
+      <body className={`${inter.variable} ${chakra.variable} ${inter.className} cursor-none`}>
         <SmoothScroll>
           {children}
         </SmoothScroll>

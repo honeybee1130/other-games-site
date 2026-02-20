@@ -665,7 +665,17 @@ export default function Home() {
         </div>
         <button 
           className="nav-menu-btn" 
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          onClick={() => {
+            setMobileMenuOpen(!mobileMenuOpen)
+            // Disable/enable scroll when menu is open
+            if (lenisRef.current) {
+              if (!mobileMenuOpen) {
+                lenisRef.current.stop()
+              } else {
+                lenisRef.current.start()
+              }
+            }
+          }}
           aria-label="Menu"
         >
           <span style={{ transform: mobileMenuOpen ? 'rotate(45deg) translateY(7px)' : 'none' }} />
@@ -676,10 +686,10 @@ export default function Home() {
       
       {/* Mobile Menu */}
       <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
-        <a href="#chapter-2" onClick={() => setMobileMenuOpen(false)}>About</a>
-        <a href="#chapter-3" onClick={() => setMobileMenuOpen(false)}>Services</a>
-        <a href="#chapter-4" onClick={() => setMobileMenuOpen(false)}>Work</a>
-        <a href="#chapter-5" onClick={() => setMobileMenuOpen(false)}>Enter</a>
+        <a href="#chapter-2" onClick={() => { setMobileMenuOpen(false); lenisRef.current?.start(); lenisRef.current?.scrollTo('#chapter-2') }}>About</a>
+        <a href="#chapter-3" onClick={() => { setMobileMenuOpen(false); lenisRef.current?.start(); lenisRef.current?.scrollTo('#chapter-3') }}>Services</a>
+        <a href="#chapter-4" onClick={() => { setMobileMenuOpen(false); lenisRef.current?.start(); lenisRef.current?.scrollTo('#chapter-4') }}>Work</a>
+        <a href="#chapter-5" onClick={() => { setMobileMenuOpen(false); lenisRef.current?.start(); lenisRef.current?.scrollTo('#chapter-5') }}>Enter</a>
       </div>
 
       {/* Progress indicator */}
