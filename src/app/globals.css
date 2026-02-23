@@ -22,6 +22,7 @@
 
 html {
   scroll-behavior: initial;
+  overflow-x: hidden;
 }
 
 body {
@@ -682,6 +683,7 @@ body, a, button { cursor: none; }
   width: 320px;
   height: 320px;
   margin: 80px auto;
+  overflow: hidden;
 }
 
 .portal-ring {
@@ -1354,6 +1356,11 @@ body, a, button { cursor: none; }
     font-size: clamp(2rem, 10vw, 3.5rem);
   }
   
+  .chapter-content {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
   .chapter-text {
     font-size: 1rem;
     line-height: 1.8;
@@ -1369,6 +1376,7 @@ body, a, button { cursor: none; }
     width: 240px;
     height: 240px;
     margin: 50px auto;
+    overflow: hidden;
   }
   
   .portal-logo {
