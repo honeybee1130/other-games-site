@@ -37,6 +37,7 @@ const cases = [
   { tag: '5 Days', label: 'Yuga Labs Official', title: 'Nexus Launch', desc: 'Official launch event for Koda Nexus', img: '/nexus-launch.jpg', url: 'https://x.com/OtherGamesXYZ/status/1988673150775873629' },
   { tag: 'Campaign', label: 'Amazon Gaming x Otherside', title: 'Boximus', desc: 'Voyager avatar collaboration', img: '/boximus.png', url: 'https://x.com/OtherGamesXYZ/status/2002064207723065611' },
   { tag: 'Live Event', label: 'Apefest Vegas', title: 'HyperX Arena', desc: 'IRL Otherside gaming experience', img: '/hyperx-arena.jpg', url: 'https://x.com/OthersideMeta/status/1982262846340956295' },
+  { tag: 'Collab', label: 'Franky the Frog x MetaMask', title: 'Franky x MetaMask', desc: 'Brand collab event inside the Otherside', img: '/franky-metamask.png', url: 'https://x.com/OtherGamesXYZ/status/2024591118151942547?s=20' },
 ]
 
 const stats = [
