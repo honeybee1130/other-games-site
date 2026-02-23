@@ -10,6 +10,10 @@ const chakra = Chakra_Petch({ subsets: ['latin'], weight: ['400', '500', '600', 
 export const metadata: Metadata = {
   title: 'Other Games | Enter the Otherside',
   description: 'Premium gaming experiences in the Otherside metaverse. We create events, worlds, avatars, and wearables that turn brands into legends.',
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+  },
   openGraph: {
     title: 'Other Games | Enter the Otherside',
     description: 'Premium gaming experiences in the Otherside metaverse.',
