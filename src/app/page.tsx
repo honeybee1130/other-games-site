@@ -714,8 +714,8 @@ export default function Home() {
               Now Entering
             </div>
             <h1 className="hero-headline">
-              <span className="hero-line">THE</span>
-              <span className="hero-line gradient-text">OTHERSIDE</span>
+              <span className="hero-line">OTHER</span>
+              <span className="hero-line gradient-text">GAMES</span>
             </h1>
             <p className="hero-sub">Where brands come to tell their stories</p>
             <div className="hero-scroll-hint">
