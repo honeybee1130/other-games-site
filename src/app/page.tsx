@@ -5,6 +5,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from '@studio-freight/lenis'
 import { SplitText } from '../utils/SplitText'
+import { ContactModal } from '../components/ContactModal'
 
 // Dynamic import for 3D scene (no SSR)
 const HeroScene = dynamic(() => import('../components/HeroScene').then(mod => mod.HeroScene), {
@@ -99,6 +100,7 @@ export default function Home() {
   const [cursorVariant, setCursorVariant] = useState('default')
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [contactOpen, setContactOpen] = useState(false)
   const lenisRef = useRef<Lenis | null>(null)
 
   // Detect mobile
@@ -884,11 +886,11 @@ export default function Home() {
               <span className="text-dim">Create your Otherside moment.</span>
             </p>
             <div className="cta-buttons">
-              <a href="https://twitter.com/OtherGamesXYZ" target="_blank" className="btn-primary">
+              <button onClick={() => setContactOpen(true)} className="btn-primary">
                 <span>Let's Talk</span>
                 <div className="btn-glow" />
                 <div className="btn-shine" />
-              </a>
+              </button>
               <a href="mailto:othergamesxyz@gmail.com" className="btn-secondary">
                 othergamesxyz@gmail.com
               </a>
@@ -926,6 +928,7 @@ export default function Home() {
           </div>
         </footer>
       </main>
+      <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} />
     </>
   )
 }
