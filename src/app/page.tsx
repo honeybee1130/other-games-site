@@ -44,7 +44,7 @@ const stats = [
   { value: 15, suffix: 'M+', label: 'Impressions' },
   { value: 200, suffix: '+', label: 'Per Event' },
   { value: 10.67, suffix: '%', label: 'Mindshare' },
-  { value: 30, suffix: '+', label: 'Events' },
+  { value: 50, suffix: '+', label: 'Events' },
 ]
 
 // Scramble text effect
