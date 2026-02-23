@@ -908,6 +908,7 @@ export default function Home() {
             <div className="footer-links">
               <h4>Socials</h4>
               <a href="https://twitter.com/OtherGamesXYZ" target="_blank">Twitter</a>
+              <a href="https://discord.com/invite/othergames" target="_blank">Discord</a>
               <a href="https://youtube.com/@othergamesx" target="_blank">YouTube</a>
               <a href="https://twitch.tv/OtherGamesXYZ" target="_blank">Twitch</a>
             </div>
