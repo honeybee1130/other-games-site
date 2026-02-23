@@ -11,8 +11,12 @@ export const metadata: Metadata = {
   title: 'Other Games | Enter the Otherside',
   description: 'Premium gaming experiences in the Otherside metaverse. We create events, worlds, avatars, and wearables that turn brands into legends.',
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      { url: '/favicon.ico', sizes: '16x16 32x32', type: 'image/x-icon' },
+      { url: '/icon.png', sizes: '32x32', type: 'image/png' },
+    ],
     shortcut: '/favicon.ico',
+    apple: '/icon.png',
   },
   openGraph: {
     title: 'Other Games | Enter the Otherside',
