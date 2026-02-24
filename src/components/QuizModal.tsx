@@ -8,48 +8,48 @@ interface QuizModalProps {
 
 const questions = [
   {
-    q: "The event starts in 30 minutes. Nothing is ready. You:",
+    q: "It's game day. Your contribution to the group chat is:",
     answers: [
-      { text: "Already have a backup plan. The backup has a backup.", host: 'honeyb' },
-      { text: "Make it look intentional. It's gonna be the best part of the night.", host: 'mak' },
-      { text: "Start hyping everyone up so hard they forget there was supposed to be a plan.", host: 'hype' },
-      { text: "Walk in like you own the place and figure it out live.", host: 'gspot' },
+      { text: "The creative brief nobody asked for but everyone needed.", host: 'honeyb' },
+      { text: "47 messages hyping everyone up since 7am.", host: 'mak' },
+      { text: "One message. It's a confirmed deal.", host: 'hype' },
+      { text: "A completely unrelated meme that somehow still applies.", host: 'gspot' },
     ]
   },
   {
-    q: "You have 48 hours and $500. You:",
+    q: "How do you actually get things done?",
     answers: [
-      { text: "Build something that could technically make money by Sunday.", host: 'honeyb' },
-      { text: "Make something that would confuse and impress people equally.", host: 'mak' },
-      { text: "Throw a party and make it a moment people talk about.", host: 'hype' },
-      { text: "Disappear. Come back with a story.", host: 'gspot' },
+      { text: "I build the vision so clear that execution becomes obvious.", host: 'honeyb' },
+      { text: "I talk to people until the thing just happens.", host: 'mak' },
+      { text: "I make calls until someone says yes.", host: 'hype' },
+      { text: "Unclear. It just works out.", host: 'gspot' },
     ]
   },
   {
-    q: "Your villain arc begins when:",
+    q: "Your relationship with rules:",
     answers: [
-      { text: "Someone moves slow on something you already solved in your head a week ago.", host: 'honeyb' },
-      { text: "They change the direction without asking you.", host: 'mak' },
-      { text: "The room goes quiet and nobody is doing anything about it.", host: 'hype' },
-      { text: "You get bored.", host: 'gspot' },
+      { text: "I wrote better ones.", host: 'honeyb' },
+      { text: "Rules are for people who don't know the right people.", host: 'mak' },
+      { text: "I read them before I break them.", host: 'hype' },
+      { text: "What rules?", host: 'gspot' },
     ]
   },
   {
-    q: "Someone calls you on the phone. You:",
+    q: "You've been offline for 3 days. You come back and:",
     answers: [
-      { text: "Let it ring. Text them in 4 minutes with the answer already.", host: 'honeyb' },
-      { text: "Don't pick up. Send a voice memo that somehow says more.", host: 'mak' },
-      { text: "Pick up immediately and somehow end up on the phone for an hour.", host: 'hype' },
-      { text: "Answer from a completely unexpected location.", host: 'gspot' },
+      { text: "Drop something nobody saw coming and disappear again.", host: 'honeyb' },
+      { text: "Reply to 200 messages in 20 minutes.", host: 'mak' },
+      { text: "Announce you closed something.", host: 'hype' },
+      { text: "Act like nothing happened.", host: 'gspot' },
     ]
   },
   {
-    q: "Describe yourself but you can only pick one:",
+    q: "If the collab falls apart, it's because:",
     answers: [
-      { text: "Quietly running circles around everyone.", host: 'honeyb' },
-      { text: "The reason it looks the way it looks.", host: 'mak' },
-      { text: "The reason people showed up.", host: 'hype' },
-      { text: "A lot going on.", host: 'gspot' },
+      { text: "Their creative direction was wrong and you couldn't fix it from the outside.", host: 'honeyb' },
+      { text: "Their community was dead and you can't build on nothing.", host: 'mak' },
+      { text: "They couldn't close and kept wasting your time.", host: 'hype' },
+      { text: "You got bored.", host: 'gspot' },
     ]
   },
 ]
@@ -58,28 +58,28 @@ const results = {
   honeyb: {
     name: 'Honey B',
     handle: '@honeybd',
-    desc: "You're running 3 parallel timelines and you already know how each one ends. The chaos everyone else sees is just Tuesday to you. You've probably optimized something today that nobody asked you to and it worked.",
+    desc: "You're the creative director in the room even when nobody called you that. You have opinions on how things look, feel, and land — and you're usually right. The vision lives in your head before anyone else can see it. Classically trained chaos architect.",
     color: '#00c3ff',
     link: 'https://x.com/honeybd',
   },
   mak: {
     name: 'Makaveli',
     handle: '@MakaveliDlaCruz',
-    desc: "You see the final form before anyone else even knows there's a form to see. Quiet with the vision, loud with the output. Everything you touch looks like it was always supposed to look that way.",
+    desc: "You are the community. When people show up, it's partly because of you. You're loud, consistent, and you genuinely know everybody. The Discord would be a ghost town without you and everyone knows it.",
     color: '#a855f7',
     link: 'https://x.com/MakaveliDlaCruz',
   },
   hype: {
     name: 'Hype',
     handle: '@morethenhype',
-    desc: "You are the atmosphere. Rooms feel different when you're in them. People leave your calls and spaces feeling like they can do something — that's not an accident, that's a skill. An unreasonable amount of energy for one person.",
+    desc: "You get things done while everyone else is still talking about getting things done. BD doesn't stand for business development, it stands for you show up and deals happen. Operator energy in a normal person's body.",
     color: '#f97316',
     link: 'https://x.com/morethenhype',
   },
   gspot: {
     name: 'Gspot',
     handle: '@timmygspt',
-    desc: "Chaotic good with a very specific frequency. You operate on instinct and somehow it's almost always right. Nobody can fully predict you, which is probably the point. You've done at least one thing today nobody else thought of.",
+    desc: "You don't give a fuck in the best possible way. The unpredictable variable that makes everything more interesting. Nobody knows what you're going to say next and that's exactly the point. Somehow it usually works.",
     color: '#22c55e',
     link: 'https://x.com/timmygspt',
   },
