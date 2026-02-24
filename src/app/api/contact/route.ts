@@ -78,5 +78,5 @@ export async function POST(req: NextRequest) {
     results.telegram = 'missing env vars'
   }
 
-  return NextResponse.json({ success: true, debug: results })
+  return NextResponse.json({ success: true })
 }
