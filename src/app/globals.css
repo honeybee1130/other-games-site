@@ -395,9 +395,26 @@ body, a, button { cursor: none; }
   transform-origin: center;
 }
 
-/* Mobile menu overlay - hidden on desktop */
+/* Mobile menu overlay - hidden by default, shown via media queries */
 .mobile-menu {
   display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 99;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s;
+  padding: 20px;
+}
+
+.mobile-menu.open {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .nav-cta {
@@ -1270,26 +1287,11 @@ body, a, button { cursor: none; }
   /* Mobile Menu Overlay */
   .mobile-menu {
     display: flex;
-    position: fixed;
-    inset: 0;
-    background: var(--bg);
-    z-index: 99;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 32px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.4s;
     padding: env(safe-area-inset-top, 20px) 20px env(safe-area-inset-bottom, 20px);
   }
   
-  .mobile-menu.open {
-    opacity: 1;
-    pointer-events: auto;
-  }
-  
-  .mobile-menu a {
+  .mobile-menu a,
+  .mobile-menu button {
     font-family: var(--font-chakra), 'Chakra Petch', sans-serif;
     font-size: 2rem;
     font-weight: 600;
@@ -1300,7 +1302,8 @@ body, a, button { cursor: none; }
     transition: all 0.4s var(--ease-out-expo);
   }
   
-  .mobile-menu.open a {
+  .mobile-menu.open a,
+  .mobile-menu.open button {
     opacity: 1;
     transform: translateY(0);
   }
@@ -1820,11 +1823,16 @@ body, a, button { cursor: none; }
   color: #fff;
 }
 
-/* Hide quiz + daddy at medium screens where they'd crowd the nav */
-@media (max-width: 1100px) and (min-width: 769px) {
-  .nav-daddy,
-  .nav-quiz-btn {
+/* Collapse full nav to hamburger at 1100px */
+@media (max-width: 1100px) {
+  .nav-links {
     display: none;
+  }
+  .nav-menu-btn {
+    display: flex;
+  }
+  .mobile-menu {
+    display: flex;
   }
 }
 
@@ -2087,3 +2095,20 @@ body, a, button { cursor: none; }
   opacity: 0.5;
   cursor: wait;
 }
+
+/* Mobile menu button styling (quiz + DADDY treated like nav links) */
+.mobile-menu button {
+  font-family: var(--font-chakra), 'Chakra Petch', sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.mobile-menu.open a:nth-child(5) { transition-delay: 0.3s; }
+.mobile-menu.open a:nth-child(6) { transition-delay: 0.35s; }
+.mobile-menu.open button:nth-child(4) { transition-delay: 0.25s; }
+.mobile-menu.open button:nth-child(5) { transition-delay: 0.3s; }
