@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from '@studio-freight/lenis'
 import { SplitText } from '../utils/SplitText'
 import { ContactModal } from '../components/ContactModal'
+import { QuizModal } from '../components/QuizModal'
 
 // Dynamic import for 3D scene (no SSR)
 const HeroScene = dynamic(() => import('../components/HeroScene').then(mod => mod.HeroScene), {
@@ -101,6 +102,7 @@ export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [contactOpen, setContactOpen] = useState(false)
+  const [quizOpen, setQuizOpen] = useState(false)
   const lenisRef = useRef<Lenis | null>(null)
 
   // Detect mobile
@@ -664,6 +666,8 @@ export default function Home() {
           <a href="#chapter-2">About</a>
           <a href="#chapter-3">Services</a>
           <a href="#chapter-4">Work</a>
+          <button className="nav-quiz-btn" onClick={() => setQuizOpen(true)}>Which Host Are You?</button>
+          <a href="https://otherside.xyz" target="_blank" rel="noopener noreferrer" className="nav-daddy">DADDY</a>
           <a href="#chapter-5" className="nav-cta">Enter</a>
         </div>
         <button 
@@ -692,6 +696,8 @@ export default function Home() {
         <a href="#chapter-2" onClick={() => { setMobileMenuOpen(false); lenisRef.current?.start(); lenisRef.current?.scrollTo('#chapter-2') }}>About</a>
         <a href="#chapter-3" onClick={() => { setMobileMenuOpen(false); lenisRef.current?.start(); lenisRef.current?.scrollTo('#chapter-3') }}>Services</a>
         <a href="#chapter-4" onClick={() => { setMobileMenuOpen(false); lenisRef.current?.start(); lenisRef.current?.scrollTo('#chapter-4') }}>Work</a>
+        <button onClick={() => { setMobileMenuOpen(false); lenisRef.current?.start(); setQuizOpen(true) }}>Which Host Are You?</button>
+        <a href="https://otherside.xyz" target="_blank" rel="noopener noreferrer" onClick={() => { setMobileMenuOpen(false); lenisRef.current?.start() }}>DADDY</a>
         <a href="#chapter-5" onClick={() => { setMobileMenuOpen(false); lenisRef.current?.start(); lenisRef.current?.scrollTo('#chapter-5') }}>Enter</a>
       </div>
 
@@ -929,6 +935,7 @@ export default function Home() {
         </footer>
       </main>
       <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} />
+      <QuizModal isOpen={quizOpen} onClose={() => setQuizOpen(false)} />
     </>
   )
 }
