@@ -8,48 +8,48 @@ interface QuizModalProps {
 
 const questions = [
   {
-    q: "It's Saturday night. Where are you?",
+    q: "The event starts in 30 minutes. Nothing is ready. You:",
     answers: [
-      { text: "Headphones on, locked in, gaming solo", host: 'honeyb' },
-      { text: "Somewhere designing something until 3am", host: 'mak' },
-      { text: "On a Space talking to 200 people", host: 'hype' },
-      { text: "Somewhere you probably shouldn't be", host: 'gspot' },
+      { text: "Already have a backup plan. The backup has a backup.", host: 'honeyb' },
+      { text: "Make it look intentional. It's gonna be the best part of the night.", host: 'mak' },
+      { text: "Start hyping everyone up so hard they forget there was supposed to be a plan.", host: 'hype' },
+      { text: "Walk in like you own the place and figure it out live.", host: 'gspot' },
     ]
   },
   {
-    q: "Someone doubts the vision. You:",
+    q: "You have 48 hours and $500. You:",
     answers: [
-      { text: "Pull up the data. Let the numbers talk.", host: 'honeyb' },
-      { text: "Show them the work. It speaks for itself.", host: 'mak' },
-      { text: "Talk them into it on the spot.", host: 'hype' },
-      { text: "Already moved on. Their loss.", host: 'gspot' },
+      { text: "Build something that could technically make money by Sunday.", host: 'honeyb' },
+      { text: "Make something that would confuse and impress people equally.", host: 'mak' },
+      { text: "Throw a party and make it a moment people talk about.", host: 'hype' },
+      { text: "Disappear. Come back with a story.", host: 'gspot' },
     ]
   },
   {
-    q: "What's your actual superpower?",
+    q: "Your villain arc begins when:",
     answers: [
-      { text: "Turning chaos into systems", host: 'honeyb' },
-      { text: "Making anything look inevitable", host: 'mak' },
-      { text: "Getting a room completely locked in", host: 'hype' },
-      { text: "Showing up at the exact right moment", host: 'gspot' },
+      { text: "Someone moves slow on something you already solved in your head a week ago.", host: 'honeyb' },
+      { text: "They change the direction without asking you.", host: 'mak' },
+      { text: "The room goes quiet and nobody is doing anything about it.", host: 'hype' },
+      { text: "You get bored.", host: 'gspot' },
     ]
   },
   {
-    q: "Your role in any group:",
+    q: "Someone calls you on the phone. You:",
     answers: [
-      { text: "The one with the plan nobody else sees yet", host: 'honeyb' },
-      { text: "The creative who makes the whole thing look good", host: 'mak' },
-      { text: "The energy that keeps everyone going", host: 'hype' },
-      { text: "The wildcard who somehow makes it happen", host: 'gspot' },
+      { text: "Let it ring. Text them in 4 minutes with the answer already.", host: 'honeyb' },
+      { text: "Don't pick up. Send a voice memo that somehow says more.", host: 'mak' },
+      { text: "Pick up immediately and somehow end up on the phone for an hour.", host: 'hype' },
+      { text: "Answer from a completely unexpected location.", host: 'gspot' },
     ]
   },
   {
-    q: "What do you value most?",
+    q: "Describe yourself but you can only pick one:",
     answers: [
-      { text: "Efficiency. Get it done, get it right.", host: 'honeyb' },
-      { text: "Vision. Build something that lasts.", host: 'mak' },
-      { text: "Community. Nothing matters without the people.", host: 'hype' },
-      { text: "Momentum. Keep moving or get left behind.", host: 'gspot' },
+      { text: "Quietly running circles around everyone.", host: 'honeyb' },
+      { text: "The reason it looks the way it looks.", host: 'mak' },
+      { text: "The reason people showed up.", host: 'hype' },
+      { text: "A lot going on.", host: 'gspot' },
     ]
   },
 ]
@@ -58,28 +58,28 @@ const results = {
   honeyb: {
     name: 'Honey B',
     handle: '@honeybd',
-    desc: "You move like a chess player in a room full of checkers. Analytical, quiet until you're not, and when you commit to something it's already done in your head. You probably have 3 tabs open right now optimizing something nobody asked you to.",
+    desc: "You're running 3 parallel timelines and you already know how each one ends. The chaos everyone else sees is just Tuesday to you. You've probably optimized something today that nobody asked you to and it worked.",
     color: '#00c3ff',
     link: 'https://x.com/honeybd',
   },
   mak: {
     name: 'Makaveli',
-    handle: '@makavelidelacruz',
-    desc: "You see the final form before anyone else does. Creative direction is just thinking clearly while everyone else panics. You build things that look obvious in hindsight but nobody else could have made.",
+    handle: '@MakaveliDlaCruz',
+    desc: "You see the final form before anyone else even knows there's a form to see. Quiet with the vision, loud with the output. Everything you touch looks like it was always supposed to look that way.",
     color: '#a855f7',
-    link: 'https://x.com/makavelidelacruz',
+    link: 'https://x.com/MakaveliDlaCruz',
   },
   hype: {
     name: 'Hype',
     handle: '@morethenhype',
-    desc: "You're the reason rooms come alive. Natural connector, natural host, and you make hard things feel easy because your energy is genuinely contagious. People would follow you into anything.",
+    desc: "You are the atmosphere. Rooms feel different when you're in them. People leave your calls and spaces feeling like they can do something — that's not an accident, that's a skill. An unreasonable amount of energy for one person.",
     color: '#f97316',
     link: 'https://x.com/morethenhype',
   },
   gspot: {
     name: 'Gspot',
     handle: '@timmygspt',
-    desc: "Unpredictable in the best way. You operate on instinct and it works more than it has any right to. You've probably already done something today that nobody else would have thought to do.",
+    desc: "Chaotic good with a very specific frequency. You operate on instinct and somehow it's almost always right. Nobody can fully predict you, which is probably the point. You've done at least one thing today nobody else thought of.",
     color: '#22c55e',
     link: 'https://x.com/timmygspt',
   },
