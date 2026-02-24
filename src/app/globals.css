@@ -1969,3 +1969,111 @@ body, a, button { cursor: none; }
     font-size: 2.2rem;
   }
 }
+
+/* ─── Quiz Share Card (hidden, captured by html2canvas) ─── */
+.quiz-share-card {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  width: 480px;
+  background: #0a0a0a;
+  border: 1px solid;
+  border-radius: 16px;
+  padding: 36px;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.quiz-share-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.quiz-share-card-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.4);
+}
+
+.quiz-share-card-site {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.25);
+}
+
+.quiz-share-card-result {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.quiz-share-card-got {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.quiz-share-card-name {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.quiz-share-card-handle {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.4);
+  margin-top: 4px;
+}
+
+.quiz-share-card-desc {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.65;
+}
+
+.quiz-share-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.quiz-share-card-footer span:last-child {
+  color: rgba(255,255,255,0.25);
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* ─── Share Button ─── */
+.quiz-share-btn {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #fff;
+  padding: 14px 28px;
+  border-radius: 100px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  font-family: inherit;
+}
+
+.quiz-share-btn:hover:not(:disabled) {
+  background: rgba(255,255,255,0.14);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.quiz-share-btn:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}

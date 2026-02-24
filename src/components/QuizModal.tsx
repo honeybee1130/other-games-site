@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 
 interface QuizModalProps {
   isOpen: boolean
@@ -90,6 +90,8 @@ export function QuizModal({ isOpen, onClose }: QuizModalProps) {
   const [scores, setScores] = useState<Record<string, number>>({ honeyb: 0, mak: 0, hype: 0, gspot: 0 })
   const [result, setResult] = useState<string | null>(null)
   const [selected, setSelected] = useState<number | null>(null)
+  const [shareState, setShareState] = useState<'idle' | 'copying' | 'copied'>('idle')
+  const shareCardRef = useRef<HTMLDivElement>(null)
 
   if (!isOpen) return null
 
@@ -113,6 +115,61 @@ export function QuizModal({ isOpen, onClose }: QuizModalProps) {
     setScores({ honeyb: 0, mak: 0, hype: 0, gspot: 0 })
     setResult(null)
     setSelected(null)
+    setShareState('idle')
+  }
+
+  const handleShare = async () => {
+    if (!shareCardRef.current || shareState === 'copying') return
+    setShareState('copying')
+
+    try {
+      const html2canvas = (await import('html2canvas')).default
+      const canvas = await html2canvas(shareCardRef.current, {
+        backgroundColor: '#0a0a0a',
+        scale: 2,
+        useCORS: true,
+        logging: false,
+      })
+
+      canvas.toBlob(async (blob) => {
+        if (!blob) return
+
+        // Try Web Share API first (mobile)
+        if (navigator.share && navigator.canShare?.({ files: [new File([blob], 'my-og-host.png', { type: 'image/png' })] })) {
+          const file = new File([blob], 'my-og-host.png', { type: 'image/png' })
+          await navigator.share({
+            title: `I got ${res?.name} on the Other Games quiz`,
+            text: `Find out which Other Games host you are at othergames.xyz`,
+            files: [file],
+          })
+          setShareState('idle')
+          return
+        }
+
+        // Desktop — copy to clipboard
+        if (navigator.clipboard?.write) {
+          await navigator.clipboard.write([
+            new ClipboardItem({ 'image/png': blob })
+          ])
+          setShareState('copied')
+          setTimeout(() => setShareState('idle'), 2500)
+          return
+        }
+
+        // Final fallback — download
+        const url = URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = 'my-og-host.png'
+        a.click()
+        URL.revokeObjectURL(url)
+        setShareState('idle')
+      }, 'image/png')
+
+    } catch (err) {
+      console.error('Share failed:', err)
+      setShareState('idle')
+    }
   }
 
   const res = result ? results[result as keyof typeof results] : null
@@ -143,14 +200,45 @@ export function QuizModal({ isOpen, onClose }: QuizModalProps) {
           </>
         ) : res ? (
           <div className="quiz-result">
+            {/* Visible result UI */}
             <p className="quiz-result-label">You got</p>
             <h2 className="quiz-result-name" style={{ color: res.color }}>{res.name}</h2>
             <p className="quiz-result-handle">{res.handle}</p>
             <p className="quiz-result-desc">{res.desc}</p>
+
+            {/* Hidden share card — captured by html2canvas */}
+            <div
+              ref={shareCardRef}
+              className="quiz-share-card"
+              style={{ borderColor: res.color }}
+            >
+              <div className="quiz-share-card-top">
+                <span className="quiz-share-card-label">which other games host are you?</span>
+                <span className="quiz-share-card-site">othergames.xyz</span>
+              </div>
+              <div className="quiz-share-card-result">
+                <p className="quiz-share-card-got">I got</p>
+                <h2 className="quiz-share-card-name" style={{ color: res.color }}>{res.name}</h2>
+                <p className="quiz-share-card-handle">{res.handle}</p>
+              </div>
+              <p className="quiz-share-card-desc">{res.desc}</p>
+              <div className="quiz-share-card-footer">
+                <span style={{ color: res.color }}>OTHER GAMES</span>
+                <span>othergames.xyz/quiz</span>
+              </div>
+            </div>
+
             <div className="quiz-result-actions">
               <a href={res.link} target="_blank" rel="noopener noreferrer" className="btn-primary">
                 Follow {res.name}
               </a>
+              <button
+                className="quiz-share-btn"
+                onClick={handleShare}
+                disabled={shareState === 'copying'}
+              >
+                {shareState === 'copying' ? 'Generating...' : shareState === 'copied' ? 'Copied!' : 'Copy & Share'}
+              </button>
               <button className="quiz-retake" onClick={reset}>Try again</button>
             </div>
           </div>
