@@ -346,7 +346,7 @@ body, a, button { cursor: none; }
 
 .nav-links {
   display: flex;
-  gap: 48px;
+  gap: 24px;
   align-items: center;
 }
 
@@ -1788,6 +1788,7 @@ body, a, button { cursor: none; }
   mix-blend-mode: normal;
   transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .nav-daddy::after {
@@ -1811,11 +1812,20 @@ body, a, button { cursor: none; }
   transition: border-color 0.2s, color 0.2s;
   font-family: inherit;
   letter-spacing: 0.03em;
+  white-space: nowrap;
 }
 
 .nav-quiz-btn:hover {
   border-color: rgba(255,255,255,0.6);
   color: #fff;
+}
+
+/* Hide quiz + daddy at medium screens where they'd crowd the nav */
+@media (max-width: 1100px) and (min-width: 769px) {
+  .nav-daddy,
+  .nav-quiz-btn {
+    display: none;
+  }
 }
 
 /* ─── Quiz Modal ─── */
