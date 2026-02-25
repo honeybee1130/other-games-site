@@ -20,7 +20,7 @@ const questions = [
     q: "How do you actually win?",
     answers: [
       { text: "I studied the meta. I know every counter. I was ready before the game started.", host: 'dino' },
-      { text: "I host the game, stream it, close a deal during halftime, and still podium.", host: 'jayb' },
+      { text: "I build the hype so loud that everyone else loses confidence.", host: 'mak' },
       { text: "Honestly? I play with everything I've got and trust the process.", host: 'dippy' },
       { text: "The energy has to be right. When the vibe is locked in, the W follows.", host: 'smudgy' },
     ]
@@ -29,7 +29,7 @@ const questions = [
     q: "Your relationship with rules:",
     answers: [
       { text: "I wrote better ones.", host: 'honeyb' },
-      { text: "I've already made a podcast episode about bending them.", host: 'jayb' },
+      { text: "I read them once, file them, and never think about them again.", host: 'hype' },
       { text: "I respect them even when they're inconvenient.", host: 'dippy' },
       { text: "What rules?", host: 'gspot' },
     ]
@@ -56,7 +56,7 @@ const questions = [
     q: "Your pre-game energy:",
     answers: [
       { text: "Zero words. Maximum output.", host: 'hype' },
-      { text: "Already live. Already streaming. Already doing three other things.", host: 'jayb' },
+      { text: "Chaotic. Absolutely chaotic. And that's the plan.", host: 'gspot' },
       { text: "Headset on. Analyzing the lobby. No talking until it's time.", host: 'dino' },
       { text: "Good music queued. Energy locked. Let's go.", host: 'smudgy' },
     ]
@@ -98,13 +98,6 @@ const results = {
     desc: "You play to win and you've got the receipts. The meta doesn't intimidate you — you built the study guide. Whether you're hunting bounties or hosting games, you know the matchup before it starts. People come to you when they actually want to level up.",
     color: '#ef4444',
     link: 'https://x.com/dinopawnz',
-  },
-  jayb: {
-    name: 'Jay B',
-    handle: '@ClassicsCrypto',
-    desc: "You are three timelines running simultaneously. CEO, streamer, speaker, and somehow still here. Nobody outworks you, nobody out-shows you, and nobody even tries. Where other people pick a lane, you built a highway.",
-    color: '#f59e0b',
-    link: 'https://x.com/ClassicsCrypto',
   },
   dippy: {
     name: 'Dippy',
