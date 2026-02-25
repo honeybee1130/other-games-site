@@ -1,12 +1,11 @@
 'use client'
 import { Suspense, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Environment, PerspectiveCamera } from '@react-three/drei'
-import { EffectComposer, Bloom, Vignette, Noise } from '@react-three/postprocessing'
-import { BlendFunction } from 'postprocessing'
+import { PerspectiveCamera } from '@react-three/drei'
+import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing'
 import * as THREE from 'three'
 import { KodaModel } from './KodaModel'
-import { StarField, NebulaClouds } from './StarField'
+import { StarField } from './StarField'
 
 // Animated portal ring with shader
 function PortalRing({ radius = 2, color = '#00D4FF', speed = 0.5 }: { radius?: number; color?: string; speed?: number }) {
@@ -24,7 +23,7 @@ function PortalRing({ radius = 2, color = '#00D4FF', speed = 0.5 }: { radius?: n
 
   return (
     <mesh ref={ringRef} rotation={[Math.PI / 2, 0, 0]}>
-      <torusGeometry args={[radius, 0.015, 16, 100]} />
+      <torusGeometry args={[radius, 0.015, 8, 48]} />
       <shaderMaterial
         ref={materialRef}
         uniforms={{
@@ -99,7 +98,7 @@ function EnergyBeams() {
 function FloorGrid() {
   return (
     <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2, 0]}>
-      <planeGeometry args={[30, 30, 30, 30]} />
+      <planeGeometry args={[30, 30, 10, 10]} />
       <shaderMaterial
         uniforms={{
           color: { value: new THREE.Color('#00D4FF') }
@@ -159,8 +158,7 @@ function SceneContent() {
       />
 
       {/* Background */}
-      <StarField count={800} />
-      <NebulaClouds />
+      <StarField count={600} />
       
       {/* Character */}
       <KodaModel scale={1.5} position={[0, -0.8, 0]} />
@@ -183,8 +181,8 @@ function SceneContent() {
       <EnergyBeams />
       <FloorGrid />
       
-      {/* Environment for reflections */}
-      <Environment preset="night" />
+      {/* Hemisphere light instead of full HDR environment */}
+      <hemisphereLight args={['#0a0a2e', '#000000', 0.3]} />
     </>
   )
 }
@@ -201,10 +199,6 @@ function Effects() {
       <Vignette 
         darkness={0.5}
         offset={0.3}
-      />
-      <Noise 
-        opacity={0.02}
-        blendFunction={BlendFunction.OVERLAY}
       />
     </EffectComposer>
   )
@@ -224,7 +218,8 @@ export function HeroScene() {
           alpha: true,
           powerPreference: 'high-performance'
         }}
-        dpr={[1, 1.5]}
+        dpr={1}
+        performance={{ min: 0.5 }}
       >
         <Suspense fallback={null}>
           <SceneContent />

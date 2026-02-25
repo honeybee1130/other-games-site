@@ -72,7 +72,7 @@ const scrambleText = (element: HTMLElement, finalText: string, duration: number 
 }
 
 // Generate stars with more variety
-const stars = Array.from({ length: 150 }, (_, i) => ({
+const stars = Array.from({ length: 50 }, (_, i) => ({
   id: i,
   left: Math.random() * 100,
   top: Math.random() * 500,
@@ -568,15 +568,6 @@ export default function Home() {
     // GLOBAL EFFECTS
     // ============================================
     
-    // Noise overlay flicker
-    gsap.to('.noise-overlay', {
-      opacity: 0.03,
-      duration: 0.05,
-      repeat: -1,
-      yoyo: true,
-      ease: 'none'
-    })
-
     // Magnetic buttons
     document.querySelectorAll('.btn-primary, .nav-cta').forEach(btn => {
       btn.addEventListener('mousemove', (e: any) => {

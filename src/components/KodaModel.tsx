@@ -1,7 +1,7 @@
 'use client'
 import { useRef, useMemo, Suspense } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { Float, useGLTF } from '@react-three/drei'
+import { useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
 
 // Load the actual GLB model
@@ -14,22 +14,15 @@ function CharacterModel({ scale = 1, position = [0, 0, 0] }: { scale?: number; p
 
   useFrame((state) => {
     if (groupRef.current) {
-      // Gentle rotation
       groupRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.3) * 0.2 + Math.PI
       groupRef.current.position.y = position[1] + Math.sin(state.clock.elapsedTime * 0.5) * 0.1
     }
   })
 
   return (
-    <Float
-      speed={2}
-      rotationIntensity={0.2}
-      floatIntensity={0.3}
-    >
-      <group ref={groupRef} scale={scale} position={position}>
-        <primitive object={clonedScene} />
-      </group>
-    </Float>
+    <group ref={groupRef} scale={scale} position={position}>
+      <primitive object={clonedScene} />
+    </group>
   )
 }
 
