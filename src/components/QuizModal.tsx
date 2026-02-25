@@ -20,9 +20,9 @@ const questions = [
     q: "How do you actually win?",
     answers: [
       { text: "I studied the meta. I know every counter. I was ready before the game started.", host: 'dino' },
-      { text: "I run the event, get the community hype enough, and the W takes care of itself.", host: 'papichulo' },
+      { text: "I build the hype so loud that everyone else loses confidence.", host: 'mak' },
       { text: "Honestly? I play with everything I've got and trust the process.", host: 'dippy' },
-      { text: "I build something worth winning for, then I go get it.", host: 'giantyuppie' },
+      { text: "The energy has to be right. When the vibe is locked in, the W follows.", host: 'smudgy' },
     ]
   },
   {
@@ -38,7 +38,7 @@ const questions = [
     q: "You've been offline for 3 days. You come back and:",
     answers: [
       { text: "Reply to 200 messages in 20 minutes.", host: 'mak' },
-      { text: "Check on all three of your projects and realize two of them shipped without you.", host: 'giantyuppie' },
+      { text: "Announce you closed something.", host: 'hype' },
       { text: "Challenge the person who talked the most while you were gone.", host: 'dino' },
       { text: "Drop a playlist. No caption. No context.", host: 'smudgy' },
     ]
@@ -56,18 +56,9 @@ const questions = [
     q: "Your pre-game energy:",
     answers: [
       { text: "Zero words. Maximum output.", host: 'hype' },
-      { text: "Vibes up, community on deck. This is what it's all for.", host: 'papichulo' },
+      { text: "Chaotic. Absolutely chaotic. And that's the plan.", host: 'gspot' },
       { text: "Headset on. Analyzing the lobby. No talking until it's time.", host: 'dino' },
       { text: "Good music queued. Energy locked. Let's go.", host: 'smudgy' },
-    ]
-  },
-  {
-    q: "OG invites you to run your own event. You:",
-    answers: [
-      { text: "Accept immediately. This is why you've been showing up every Saturday.", host: 'papichulo' },
-      { text: "Build an entire ecosystem around it before the event even happens.", host: 'giantyuppie' },
-      { text: "Confirm it, calendar it, and start closing sponsors the same day.", host: 'hype' },
-      { text: "Curate the playlist first. The rest falls into place.", host: 'smudgy' },
     ]
   },
 ]
@@ -121,20 +112,6 @@ const results = {
     desc: "You move at your own frequency and somehow it's always the right one. You're the artist in the room — the one who feels the vibe before anyone names it. British wit, warm energy, and a playlist that absolutely goes hard. The mood wouldn't be the same without you.",
     color: '#8b5cf6',
     link: 'https://x.com/Smudgybox',
-  },
-  papichulo: {
-    name: 'Papichulo',
-    handle: '@Papichulomeme',
-    desc: "You run with the best energy in the room and you make it your own. You learned from the biggest, built your own thing, and kept showing up. The community trusts you because you've been there. When you host, people come — not because they have to, but because you make it worth it.",
-    color: '#f43f5e',
-    link: 'https://x.com/Papichulomeme',
-  },
-  giantyuppie: {
-    name: 'GiantYuppie',
-    handle: '@GiantYuppie',
-    desc: "You're building three things at once and somehow all of them are moving. ApeChain to the core, always in the ecosystem, always adding something. Fueled by hummus and a genuine belief that the builder wins. You don't need the spotlight — you need the infrastructure.",
-    color: '#10b981',
-    link: 'https://x.com/GiantYuppie',
   },
 }
 
