@@ -159,7 +159,7 @@ function SceneContent() {
       />
 
       {/* Background */}
-      <StarField count={1500} />
+      <StarField count={800} />
       <NebulaClouds />
       
       {/* Character */}
@@ -194,10 +194,9 @@ function Effects() {
   return (
     <EffectComposer>
       <Bloom 
-        intensity={1.5}
-        luminanceThreshold={0.2}
+        intensity={0.8}
+        luminanceThreshold={0.3}
         luminanceSmoothing={0.9}
-        mipmapBlur
       />
       <Vignette 
         darkness={0.5}
@@ -221,11 +220,11 @@ export function HeroScene() {
     }}>
       <Canvas
         gl={{ 
-          antialias: true,
+          antialias: false,
           alpha: true,
           powerPreference: 'high-performance'
         }}
-        dpr={[1, 2]}
+        dpr={[1, 1.5]}
       >
         <Suspense fallback={null}>
           <SceneContent />

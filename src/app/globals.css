@@ -636,9 +636,11 @@ body, a, button { cursor: none; }
 }
 
 .chapter-content {
+  width: 100%;
   max-width: 1000px;
   z-index: 1;
   position: relative;
+  box-sizing: border-box;
 }
 
 .chapter-label {
