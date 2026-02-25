@@ -195,10 +195,8 @@ function MobileHero() {
       overflow: 'hidden',
     }}>
       <style>{`
-        @keyframes mring-spin-cw  { to { transform: rotateX(70deg) rotate(360deg); } }
-        @keyframes mring-spin-ccw { to { transform: rotateX(70deg) rotate(-360deg); } }
-        @keyframes mring-spin-cw2 { to { transform: rotateX(70deg) rotateY(15deg) rotate(360deg); } }
-        @keyframes mring-spin-ccw2{ to { transform: rotateX(70deg) rotateY(-15deg) rotate(-360deg); } }
+        @keyframes mring-cw  { to { transform: rotate(360deg); } }
+        @keyframes mring-ccw { to { transform: rotate(-360deg); } }
         @keyframes mglow-pulse     { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
         @keyframes mstar-twinkle   { 0%,100% { opacity: 0.2; } 50% { opacity: 0.8; } }
       `}</style>
@@ -223,30 +221,28 @@ function MobileHero() {
         }} />
       ))}
 
-      {/* portal rings */}
+      {/* portal rings — 2D ellipses only, no 3D compositing */}
       <div style={{
         position: 'absolute', top: '50%', left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 260, height: 260,
-        perspective: 600,
+        width: 280, height: 280,
       }}>
         {[
-          { size: 190, color: '#00D4FF', dur: '8s',  dir: 'mring-spin-cw',   opacity: 0.7 },
-          { size: 220, color: '#8B5CF6', dur: '11s', dir: 'mring-spin-ccw',  opacity: 0.6 },
-          { size: 250, color: '#00D4FF', dur: '14s', dir: 'mring-spin-cw2',  opacity: 0.5 },
-          { size: 280, color: '#FF6B00', dur: '18s', dir: 'mring-spin-ccw2', opacity: 0.4 },
+          { w: 190, h: 72,  color: '#00D4FF', dur: '8s',  dir: 'mring-cw',  opacity: 0.75 },
+          { w: 220, h: 84,  color: '#8B5CF6', dur: '11s', dir: 'mring-ccw', opacity: 0.65 },
+          { w: 250, h: 95,  color: '#00D4FF', dur: '14s', dir: 'mring-cw',  opacity: 0.5  },
+          { w: 280, h: 106, color: '#FF6B00', dur: '18s', dir: 'mring-ccw', opacity: 0.4  },
         ].map((r, i) => (
           <div key={i} style={{
             position: 'absolute',
             top: '50%', left: '50%',
-            width: r.size, height: r.size,
-            marginLeft: -r.size / 2, marginTop: -r.size / 2,
+            width: r.w, height: r.h,
+            marginLeft: -r.w / 2, marginTop: -r.h / 2,
             borderRadius: '50%',
             border: `1.5px solid ${r.color}`,
-            boxShadow: `0 0 8px ${r.color}, 0 0 20px ${r.color}40`,
             opacity: r.opacity,
             animation: `${r.dir} ${r.dur} linear infinite`,
-            transformStyle: 'preserve-3d',
+            willChange: 'transform',
           }} />
         ))}
 
@@ -268,7 +264,6 @@ function MobileHero() {
             position: 'absolute', top: '50%', left: '50%',
             width: 52, height: 52,
             marginLeft: -26, marginTop: -26,
-            filter: 'drop-shadow(0 0 12px rgba(0,212,255,0.8))',
           }}
         />
       </div>

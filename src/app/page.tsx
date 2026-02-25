@@ -125,28 +125,43 @@ export default function Home() {
       'ENTERING'
     ]
     
+    const mobile = window.innerWidth <= 768
+    // Mobile: faster tick (no 3D to load), no long wait
+    const tickMs   = mobile ? 35 : 80
+    const stepMin  = mobile ? 10 : 2
+    const stepMax  = mobile ? 18 : 8
+
     let progress = 0
     const interval = setInterval(() => {
-      progress += Math.random() * 8 + 2
+      progress += Math.random() * stepMax + stepMin
       if (progress >= 100) {
         progress = 100
         clearInterval(interval)
-        setTimeout(() => {
-          // Dramatic exit
-          gsap.to('.loading-screen', {
-            clipPath: 'circle(0% at 50% 50%)',
-            duration: 1.2,
-            ease: 'power4.inOut',
-            onComplete: () => setLoading(false)
-          })
-        }, 600)
+        if (mobile) {
+          // Opacity fade — no clip-path repaints on mobile
+          const el = document.querySelector('.loading-screen') as HTMLElement | null
+          if (el) {
+            el.style.transition = 'opacity 0.4s ease'
+            el.style.opacity = '0'
+            setTimeout(() => setLoading(false), 420)
+          } else {
+            setLoading(false)
+          }
+        } else {
+          setTimeout(() => {
+            gsap.to('.loading-screen', {
+              clipPath: 'circle(0% at 50% 50%)',
+              duration: 1.2,
+              ease: 'power4.inOut',
+              onComplete: () => setLoading(false)
+            })
+          }, 600)
+        }
       }
       setLoadProgress(progress)
-      
-      // Update loading text based on progress
       const textIndex = Math.min(Math.floor(progress / 25), loadingTexts.length - 1)
       setLoadText(loadingTexts[textIndex])
-    }, 80)
+    }, tickMs)
     
     return () => clearInterval(interval)
   }, [])

@@ -1320,11 +1320,40 @@ body, a, button { cursor: none; }
     min-height: 100svh;
   }
 
-  /* Disable animated blur gradients on mobile — filter:blur on animated elements causes repaints */
+  /* Kill all blur effects on mobile — each one creates a compositing layer or triggers repaint */
   .hero-gradient,
   .hero-gradient-2 {
     animation: none;
     display: none;
+  }
+
+  .hero-badge {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .service-card {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .case-tag {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(0,0,0,0.85);
+  }
+
+  .divider-glow {
+    filter: none;
+    opacity: 0.4;
+  }
+
+  .chapter-bg-glow {
+    filter: none;
+  }
+
+  .btn-glow {
+    filter: none;
   }
   
   .hero-headline {
