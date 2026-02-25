@@ -1,5 +1,5 @@
 'use client'
-import { Suspense, useRef } from 'react'
+import { Suspense, useRef, useEffect, useState, useMemo } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { PerspectiveCamera } from '@react-three/drei'
 import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing'
@@ -121,12 +121,9 @@ function FloorGrid() {
             vec2 grid = abs(fract(vPosition.xy * 0.5) - 0.5);
             float line = min(grid.x, grid.y);
             float alpha = 1.0 - smoothstep(0.0, 0.02, line);
-            
-            // Fade with distance
             float dist = length(vPosition.xy);
             alpha *= 1.0 - smoothstep(5.0, 15.0, dist);
             alpha *= 0.3;
-            
             gl_FragColor = vec4(color, alpha);
           }
         `}
@@ -138,32 +135,18 @@ function FloorGrid() {
   )
 }
 
-// Main scene content
+// Main 3D scene — desktop only
 function SceneContent() {
   return (
     <>
       <PerspectiveCamera makeDefault position={[0, 0.5, 6]} fov={50} />
-      
-      {/* Lighting */}
       <ambientLight intensity={0.15} />
       <pointLight position={[5, 5, 5]} intensity={1} color="#00D4FF" />
       <pointLight position={[-5, 3, 5]} intensity={0.8} color="#8B5CF6" />
       <pointLight position={[0, -2, 3]} intensity={0.5} color="#FF6B00" />
-      <spotLight 
-        position={[0, 10, 0]} 
-        intensity={1} 
-        angle={0.4} 
-        penumbra={1} 
-        color="#ffffff"
-      />
-
-      {/* Background */}
+      <spotLight position={[0, 10, 0]} intensity={1} angle={0.4} penumbra={1} color="#ffffff" />
       <StarField count={600} />
-      
-      {/* Character */}
       <KodaModel scale={1.5} position={[0, -0.8, 0]} />
-      
-      {/* Portal effect */}
       <group position={[0, 0.5, 0]}>
         <PortalRing radius={1.8} color="#00D4FF" speed={0.3} />
         <group rotation={[0.15, 0, 0.1]}>
@@ -176,35 +159,142 @@ function SceneContent() {
           <PortalRing radius={2.7} color="#FF6B00" speed={-0.2} />
         </group>
       </group>
-      
-      {/* Energy effects */}
       <EnergyBeams />
       <FloorGrid />
-      
-      {/* Hemisphere light instead of full HDR environment */}
       <hemisphereLight args={['#0a0a2e', '#000000', 0.3]} />
     </>
   )
 }
 
-// Post-processing effects
 function Effects() {
   return (
     <EffectComposer>
-      <Bloom 
-        intensity={0.8}
-        luminanceThreshold={0.3}
-        luminanceSmoothing={0.9}
-      />
-      <Vignette 
-        darkness={0.5}
-        offset={0.3}
-      />
+      <Bloom intensity={0.8} luminanceThreshold={0.3} luminanceSmoothing={0.9} />
+      <Vignette darkness={0.5} offset={0.3} />
     </EffectComposer>
   )
 }
 
+// Pure CSS hero for mobile — zero WebGL
+function MobileHero() {
+  const mobileStars = useMemo(() => Array.from({ length: 40 }, (_, i) => ({
+    id: i,
+    left: Math.random() * 100,
+    top: Math.random() * 100,
+    size: Math.random() * 2 + 1,
+    dur: 2 + Math.random() * 3,
+    delay: Math.random() * 3,
+  })), [])
+
+  return (
+    <div style={{
+      position: 'absolute',
+      inset: 0,
+      zIndex: 1,
+      pointerEvents: 'none',
+      overflow: 'hidden',
+    }}>
+      <style>{`
+        @keyframes mring-spin-cw  { to { transform: rotateX(70deg) rotate(360deg); } }
+        @keyframes mring-spin-ccw { to { transform: rotateX(70deg) rotate(-360deg); } }
+        @keyframes mring-spin-cw2 { to { transform: rotateX(70deg) rotateY(15deg) rotate(360deg); } }
+        @keyframes mring-spin-ccw2{ to { transform: rotateX(70deg) rotateY(-15deg) rotate(-360deg); } }
+        @keyframes mglow-pulse     { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
+        @keyframes mstar-twinkle   { 0%,100% { opacity: 0.2; } 50% { opacity: 0.8; } }
+      `}</style>
+
+      {/* radial gradient backdrop */}
+      <div style={{
+        position: 'absolute', inset: 0,
+        background: 'radial-gradient(ellipse 80% 60% at 50% 55%, rgba(0,212,255,0.08) 0%, rgba(139,92,246,0.06) 40%, transparent 70%)',
+      }} />
+
+      {/* CSS stars */}
+      {mobileStars.map((s) => (
+        <div key={s.id} style={{
+          position: 'absolute',
+          left: `${s.left}%`,
+          top: `${s.top}%`,
+          width: s.size,
+          height: s.size,
+          borderRadius: '50%',
+          background: '#fff',
+          animation: `mstar-twinkle ${s.dur}s ${s.delay}s ease-in-out infinite`,
+        }} />
+      ))}
+
+      {/* portal rings */}
+      <div style={{
+        position: 'absolute', top: '50%', left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 260, height: 260,
+        perspective: 600,
+      }}>
+        {[
+          { size: 190, color: '#00D4FF', dur: '8s',  dir: 'mring-spin-cw',   opacity: 0.7 },
+          { size: 220, color: '#8B5CF6', dur: '11s', dir: 'mring-spin-ccw',  opacity: 0.6 },
+          { size: 250, color: '#00D4FF', dur: '14s', dir: 'mring-spin-cw2',  opacity: 0.5 },
+          { size: 280, color: '#FF6B00', dur: '18s', dir: 'mring-spin-ccw2', opacity: 0.4 },
+        ].map((r, i) => (
+          <div key={i} style={{
+            position: 'absolute',
+            top: '50%', left: '50%',
+            width: r.size, height: r.size,
+            marginLeft: -r.size / 2, marginTop: -r.size / 2,
+            borderRadius: '50%',
+            border: `1.5px solid ${r.color}`,
+            boxShadow: `0 0 8px ${r.color}, 0 0 20px ${r.color}40`,
+            opacity: r.opacity,
+            animation: `${r.dir} ${r.dur} linear infinite`,
+            transformStyle: 'preserve-3d',
+          }} />
+        ))}
+
+        {/* center glow */}
+        <div style={{
+          position: 'absolute', top: '50%', left: '50%',
+          width: 80, height: 80,
+          marginLeft: -40, marginTop: -40,
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(0,212,255,0.4) 0%, transparent 70%)',
+          animation: 'mglow-pulse 3s ease-in-out infinite',
+        }} />
+
+        {/* logo */}
+        <img
+          src="/logo-blue.png"
+          alt="Other Games"
+          style={{
+            position: 'absolute', top: '50%', left: '50%',
+            width: 52, height: 52,
+            marginLeft: -26, marginTop: -26,
+            filter: 'drop-shadow(0 0 12px rgba(0,212,255,0.8))',
+          }}
+        />
+      </div>
+    </div>
+  )
+}
+
 export function HeroScene() {
+  const [isMobile, setIsMobile] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+    const check = () => setIsMobile(window.innerWidth <= 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+
+  // Don't render anything until we know the screen size (avoids SSR mismatch)
+  if (!mounted) return null
+
+  if (isMobile) {
+    return <MobileHero />
+  }
+
   return (
     <div style={{ 
       position: 'absolute', 
