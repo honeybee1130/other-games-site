@@ -17,39 +17,48 @@ const questions = [
     ]
   },
   {
-    q: "How do you actually get things done?",
+    q: "How do you actually win?",
     answers: [
-      { text: "I build the vision so clear that execution becomes obvious.", host: 'honeyb' },
-      { text: "I talk to people until the thing just happens.", host: 'mak' },
-      { text: "I make calls until someone says yes.", host: 'hype' },
-      { text: "Unclear. It just works out.", host: 'gspot' },
+      { text: "I studied the meta. I know every counter. I was ready before the game started.", host: 'dino' },
+      { text: "I host the game, stream it, close a deal during halftime, and still podium.", host: 'jayb' },
+      { text: "Honestly? I play with everything I've got and trust the process.", host: 'dippy' },
+      { text: "The energy has to be right. When the vibe is locked in, the W follows.", host: 'smudgy' },
     ]
   },
   {
     q: "Your relationship with rules:",
     answers: [
       { text: "I wrote better ones.", host: 'honeyb' },
-      { text: "Rules are for people who don't know the right people.", host: 'mak' },
-      { text: "I read them before I break them.", host: 'hype' },
+      { text: "I've already made a podcast episode about bending them.", host: 'jayb' },
+      { text: "I respect them even when they're inconvenient.", host: 'dippy' },
       { text: "What rules?", host: 'gspot' },
     ]
   },
   {
     q: "You've been offline for 3 days. You come back and:",
     answers: [
-      { text: "Drop something nobody saw coming and disappear again.", host: 'honeyb' },
       { text: "Reply to 200 messages in 20 minutes.", host: 'mak' },
       { text: "Announce you closed something.", host: 'hype' },
-      { text: "Act like nothing happened.", host: 'gspot' },
+      { text: "Challenge the person who talked the most while you were gone.", host: 'dino' },
+      { text: "Drop a playlist. No caption. No context.", host: 'smudgy' },
     ]
   },
   {
-    q: "If the collab falls apart, it's because:",
+    q: "A new person joins the server. You:",
     answers: [
-      { text: "Their creative direction was wrong and you couldn't fix it from the outside.", host: 'honeyb' },
-      { text: "Their community was dead and you can't build on nothing.", host: 'mak' },
-      { text: "They couldn't close and kept wasting your time.", host: 'hype' },
-      { text: "You got bored.", host: 'gspot' },
+      { text: "DM them the vision deck before they've said hello.", host: 'honeyb' },
+      { text: "Shout them out to the entire community within 30 seconds.", host: 'mak' },
+      { text: "Send a warm welcome and check in on them all week.", host: 'dippy' },
+      { text: "Tag them in chaos before they've read the rules.", host: 'gspot' },
+    ]
+  },
+  {
+    q: "Your pre-game energy:",
+    answers: [
+      { text: "Zero words. Maximum output.", host: 'hype' },
+      { text: "Already live. Already streaming. Already doing three other things.", host: 'jayb' },
+      { text: "Headset on. Analyzing the lobby. No talking until it's time.", host: 'dino' },
+      { text: "Good music queued. Energy locked. Let's go.", host: 'smudgy' },
     ]
   },
 ]
@@ -83,11 +92,43 @@ const results = {
     color: '#22c55e',
     link: 'https://x.com/timmygspt',
   },
+  dino: {
+    name: 'Dinopawnz',
+    handle: '@dinopawnz',
+    desc: "You play to win and you've got the receipts. The meta doesn't intimidate you — you built the study guide. Whether you're hunting bounties or hosting games, you know the matchup before it starts. People come to you when they actually want to level up.",
+    color: '#ef4444',
+    link: 'https://x.com/dinopawnz',
+  },
+  jayb: {
+    name: 'Jay B',
+    handle: '@ClassicsCrypto',
+    desc: "You are three timelines running simultaneously. CEO, streamer, speaker, and somehow still here. Nobody outworks you, nobody out-shows you, and nobody even tries. Where other people pick a lane, you built a highway.",
+    color: '#f59e0b',
+    link: 'https://x.com/ClassicsCrypto',
+  },
+  dippy: {
+    name: 'Dippy',
+    handle: '@dippylvs',
+    desc: "You lead with your heart and you'd do it again. The warmest person in any room — but don't mistake that for soft. There's real conviction behind the sweetness. People feel safe around you. You show up, stay consistent, and genuinely care. That's rarer than any skill.",
+    color: '#ec4899',
+    link: 'https://x.com/dippylvs',
+  },
+  smudgy: {
+    name: 'Smudgy',
+    handle: '@Smudgybox',
+    desc: "You move at your own frequency and somehow it's always the right one. You're the artist in the room — the one who feels the vibe before anyone names it. British wit, warm energy, and a playlist that absolutely goes hard. The mood wouldn't be the same without you.",
+    color: '#8b5cf6',
+    link: 'https://x.com/Smudgybox',
+  },
 }
+
+const allHosts = Object.keys(results)
 
 export function QuizModal({ isOpen, onClose }: QuizModalProps) {
   const [current, setCurrent] = useState(0)
-  const [scores, setScores] = useState<Record<string, number>>({ honeyb: 0, mak: 0, hype: 0, gspot: 0 })
+  const [scores, setScores] = useState<Record<string, number>>(
+    Object.fromEntries(allHosts.map(h => [h, 0]))
+  )
   const [result, setResult] = useState<string | null>(null)
   const [selected, setSelected] = useState<number | null>(null)
   const [shareState, setShareState] = useState<'idle' | 'copying' | 'copied'>('idle')
@@ -112,7 +153,7 @@ export function QuizModal({ isOpen, onClose }: QuizModalProps) {
 
   const reset = () => {
     setCurrent(0)
-    setScores({ honeyb: 0, mak: 0, hype: 0, gspot: 0 })
+    setScores(Object.fromEntries(allHosts.map(h => [h, 0])))
     setResult(null)
     setSelected(null)
     setShareState('idle')
@@ -134,7 +175,6 @@ export function QuizModal({ isOpen, onClose }: QuizModalProps) {
       canvas.toBlob(async (blob) => {
         if (!blob) return
 
-        // Try Web Share API first (mobile)
         if (navigator.share && navigator.canShare?.({ files: [new File([blob], 'my-og-host.png', { type: 'image/png' })] })) {
           const file = new File([blob], 'my-og-host.png', { type: 'image/png' })
           await navigator.share({
@@ -146,7 +186,6 @@ export function QuizModal({ isOpen, onClose }: QuizModalProps) {
           return
         }
 
-        // Desktop — copy to clipboard
         if (navigator.clipboard?.write) {
           await navigator.clipboard.write([
             new ClipboardItem({ 'image/png': blob })
@@ -156,7 +195,6 @@ export function QuizModal({ isOpen, onClose }: QuizModalProps) {
           return
         }
 
-        // Final fallback — download
         const url = URL.createObjectURL(blob)
         const a = document.createElement('a')
         a.href = url
@@ -200,13 +238,11 @@ export function QuizModal({ isOpen, onClose }: QuizModalProps) {
           </>
         ) : res ? (
           <div className="quiz-result">
-            {/* Visible result UI */}
             <p className="quiz-result-label">You got</p>
             <h2 className="quiz-result-name" style={{ color: res.color }}>{res.name}</h2>
             <p className="quiz-result-handle">{res.handle}</p>
             <p className="quiz-result-desc">{res.desc}</p>
 
-            {/* Hidden share card — captured by html2canvas */}
             <div
               ref={shareCardRef}
               className="quiz-share-card"
