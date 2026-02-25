@@ -1319,6 +1319,13 @@ body, a, button { cursor: none; }
   .hero {
     min-height: 100svh;
   }
+
+  /* Disable animated blur gradients on mobile — filter:blur on animated elements causes repaints */
+  .hero-gradient,
+  .hero-gradient-2 {
+    animation: none;
+    display: none;
+  }
   
   .hero-headline {
     font-size: clamp(3.5rem, 15vw, 8rem);

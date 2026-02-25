@@ -204,23 +204,26 @@ export default function Home() {
   useEffect(() => {
     if (loading) return
 
-    // Initialize Lenis
-    const lenis = new Lenis({
-      duration: 1.4,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-    })
-    lenisRef.current = lenis
+    // Lenis smooth scroll — desktop only (mobile uses native scroll)
+    const isMobileDevice = window.innerWidth <= 768
+    if (!isMobileDevice) {
+      const lenis = new Lenis({
+        duration: 1.4,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+      })
+      lenisRef.current = lenis
 
-    function raf(time: number) {
-      lenis.raf(time)
+      function raf(time: number) {
+        lenis.raf(time)
+        requestAnimationFrame(raf)
+      }
       requestAnimationFrame(raf)
-    }
-    requestAnimationFrame(raf)
 
-    lenis.on('scroll', ScrollTrigger.update)
-    gsap.ticker.add((time) => lenis.raf(time * 1000))
-    gsap.ticker.lagSmoothing(0)
+      lenis.on('scroll', ScrollTrigger.update)
+      gsap.ticker.add((time) => lenis.raf(time * 1000))
+      gsap.ticker.lagSmoothing(0)
+    }
 
     // Scroll progress bar
     gsap.to('.scroll-progress-bar', {
@@ -275,8 +278,8 @@ export default function Home() {
         }, '-=0.3')
     }
 
-    // Hero parallax on scroll
-    if (heroRef.current) {
+    // Hero parallax on scroll — desktop only (mobile: avoid JS-driven repaints on scroll)
+    if (heroRef.current && !isMobileDevice) {
       gsap.to('.hero-content', {
         yPercent: -80,
         opacity: 0,
@@ -594,7 +597,7 @@ export default function Home() {
     })
 
     return () => {
-      lenis.destroy()
+      lenisRef.current?.destroy()
       ScrollTrigger.getAll().forEach(st => st.kill())
     }
   }, [loading])
@@ -717,11 +720,12 @@ export default function Home() {
               <span className="hero-line gradient-text">GAMES</span>
             </h1>
             <p className="hero-sub">Where brands come to tell their stories</p>
-            <div className="hero-scroll-hint">
-              <span>Scroll to explore</span>
-              <div className="scroll-arrow">
-                <div className="arrow-line" />
-              </div>
+          </div>
+          {/* Scroll hint outside hero-content so it anchors to the hero section bottom */}
+          <div className="hero-scroll-hint">
+            <span>Scroll to explore</span>
+            <div className="scroll-arrow">
+              <div className="arrow-line" />
             </div>
           </div>
         </section>
