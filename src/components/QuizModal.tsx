@@ -17,19 +17,19 @@ const questions = [
     ]
   },
   {
-    q: "How do you actually win?",
+    q: "What's your secret weapon?",
     answers: [
-      { text: "I studied the meta. I know every counter. I was ready before the game started.", host: 'dino' },
-      { text: "I build the hype so loud that everyone else loses confidence.", host: 'mak' },
-      { text: "Honestly? I play with everything I've got and trust the process.", host: 'dippy' },
-      { text: "The energy has to be right. When the vibe is locked in, the W follows.", host: 'smudgy' },
+      { text: "Preparation. I know every counter before the game starts.", host: 'dino' },
+      { text: "The community I built. They show up because I show up.", host: 'mak' },
+      { text: "Heart. I go all in every single time.", host: 'dippy' },
+      { text: "The playlist. You'd be surprised what the right music does.", host: 'smudgy' },
     ]
   },
   {
     q: "Your relationship with rules:",
     answers: [
       { text: "I wrote better ones.", host: 'honeyb' },
-      { text: "I read them once, file them, and never think about them again.", host: 'hype' },
+      { text: "There's always a shorter route. I find it.", host: 'hype' },
       { text: "I respect them even when they're inconvenient.", host: 'dippy' },
       { text: "What rules?", host: 'gspot' },
     ]
