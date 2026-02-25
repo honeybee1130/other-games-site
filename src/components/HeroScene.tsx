@@ -1,11 +1,12 @@
 'use client'
 import { Suspense, useRef, useEffect, useState, useMemo } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { PerspectiveCamera } from '@react-three/drei'
-import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing'
+import { Environment, PerspectiveCamera } from '@react-three/drei'
+import { EffectComposer, Bloom, Vignette, Noise } from '@react-three/postprocessing'
+import { BlendFunction } from 'postprocessing'
 import * as THREE from 'three'
 import { KodaModel } from './KodaModel'
-import { StarField } from './StarField'
+import { StarField, NebulaClouds } from './StarField'
 
 // Animated portal ring with shader
 function PortalRing({ radius = 2, color = '#00D4FF', speed = 0.5 }: { radius?: number; color?: string; speed?: number }) {
@@ -23,7 +24,7 @@ function PortalRing({ radius = 2, color = '#00D4FF', speed = 0.5 }: { radius?: n
 
   return (
     <mesh ref={ringRef} rotation={[Math.PI / 2, 0, 0]}>
-      <torusGeometry args={[radius, 0.015, 8, 48]} />
+      <torusGeometry args={[radius, 0.015, 16, 100]} />
       <shaderMaterial
         ref={materialRef}
         uniforms={{
@@ -98,7 +99,7 @@ function EnergyBeams() {
 function FloorGrid() {
   return (
     <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2, 0]}>
-      <planeGeometry args={[30, 30, 10, 10]} />
+      <planeGeometry args={[30, 30, 30, 30]} />
       <shaderMaterial
         uniforms={{
           color: { value: new THREE.Color('#00D4FF') }
@@ -145,7 +146,8 @@ function SceneContent() {
       <pointLight position={[-5, 3, 5]} intensity={0.8} color="#8B5CF6" />
       <pointLight position={[0, -2, 3]} intensity={0.5} color="#FF6B00" />
       <spotLight position={[0, 10, 0]} intensity={1} angle={0.4} penumbra={1} color="#ffffff" />
-      <StarField count={600} />
+      <StarField count={1500} />
+      <NebulaClouds />
       <KodaModel scale={1.5} position={[0, -0.8, 0]} />
       <group position={[0, 0.5, 0]}>
         <PortalRing radius={1.8} color="#00D4FF" speed={0.3} />
@@ -161,7 +163,7 @@ function SceneContent() {
       </group>
       <EnergyBeams />
       <FloorGrid />
-      <hemisphereLight args={['#0a0a2e', '#000000', 0.3]} />
+      <Environment preset="night" />
     </>
   )
 }
@@ -171,6 +173,7 @@ function Effects() {
     <EffectComposer>
       <Bloom intensity={0.8} luminanceThreshold={0.3} luminanceSmoothing={0.9} />
       <Vignette darkness={0.5} offset={0.3} />
+      <Noise opacity={0.02} blendFunction={BlendFunction.OVERLAY} />
     </EffectComposer>
   )
 }
@@ -303,7 +306,7 @@ export function HeroScene() {
           alpha: true,
           powerPreference: 'high-performance'
         }}
-        dpr={1}
+        dpr={[1, 1.5]}
         performance={{ min: 0.5 }}
       >
         <Suspense fallback={null}>

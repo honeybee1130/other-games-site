@@ -3,15 +3,19 @@ import { useRef, useMemo } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
-// Vertex shader — static positions, no per-vertex animation
+// Vertex shader
 const vertexShader = `
   attribute float size;
   attribute float opacity;
   varying float vOpacity;
+  uniform float time;
   
   void main() {
     vOpacity = opacity;
-    vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+    vec3 pos = position;
+    pos.x += sin(time * 0.5 + position.z) * 0.1;
+    pos.y += cos(time * 0.3 + position.x) * 0.1;
+    vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
     gl_PointSize = size * (300.0 / -mvPosition.z);
     gl_Position = projectionMatrix * mvPosition;
   }
@@ -43,6 +47,7 @@ const fragmentShader = `
 
 export function StarField({ count = 2000 }: { count?: number }) {
   const pointsRef = useRef<THREE.Points>(null)
+  const materialRef = useRef<THREE.ShaderMaterial>(null)
 
   const { positions, sizes, opacities } = useMemo(() => {
     const positions = new Float32Array(count * 3)
@@ -70,6 +75,9 @@ export function StarField({ count = 2000 }: { count?: number }) {
   }, [count])
 
   useFrame((state) => {
+    if (materialRef.current) {
+      materialRef.current.uniforms.time.value = state.clock.elapsedTime
+    }
     if (pointsRef.current) {
       pointsRef.current.rotation.y = state.clock.elapsedTime * 0.02
       pointsRef.current.rotation.x = state.clock.elapsedTime * 0.01
@@ -99,9 +107,11 @@ export function StarField({ count = 2000 }: { count?: number }) {
         />
       </bufferGeometry>
       <shaderMaterial
+        ref={materialRef}
         vertexShader={vertexShader}
         fragmentShader={fragmentShader}
         uniforms={{
+          time: { value: 0 },
           color: { value: new THREE.Color('#ffffff') }
         }}
         transparent
