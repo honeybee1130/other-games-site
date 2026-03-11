@@ -103,6 +103,9 @@ export default function Home() {
   const [isMobile, setIsMobile] = useState(false)
   const [contactOpen, setContactOpen] = useState(false)
   const [quizOpen, setQuizOpen] = useState(false)
+  const [claimOpen, setClaimOpen] = useState(false)
+  const [codeCopied, setCodeCopied] = useState(false)
+  const CLAIM_CODE = 'KINGMIMU'
   const lenisRef = useRef<Lenis | null>(null)
 
   // Detect mobile
@@ -676,6 +679,7 @@ export default function Home() {
           <a href="#chapter-3">Services</a>
           <a href="#chapter-4">Work</a>
           <button className="nav-quiz-btn" onClick={() => setQuizOpen(true)}>Which Host Are You?</button>
+          <button className="nav-claim" onClick={() => setClaimOpen(true)}>Claim Code</button>
           <a href="https://otherside.xyz" target="_blank" rel="noopener noreferrer" className="nav-daddy">DADDY</a>
           <a href="#chapter-5" className="nav-cta">Enter</a>
         </div>
@@ -946,6 +950,29 @@ export default function Home() {
       </main>
       <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} />
       <QuizModal isOpen={quizOpen} onClose={() => setQuizOpen(false)} />
+      {claimOpen && (
+        <div className="claim-overlay" onClick={() => { setClaimOpen(false); setCodeCopied(false) }}>
+          <div className="claim-modal" onClick={e => e.stopPropagation()}>
+            <button className="claim-close" onClick={() => { setClaimOpen(false); setCodeCopied(false) }}>✕</button>
+            <div className="claim-badge">WEEKLY EVENT BADGE</div>
+            <h2 className="claim-title">Claim Your Badge</h2>
+            <p className="claim-desc">Enter this code in Otherside to claim your exclusive Other Games badge.</p>
+            <div className="claim-code-box">
+              <span className="claim-code-text">{CLAIM_CODE}</span>
+              <button
+                className={`claim-copy-btn${codeCopied ? ' copied' : ''}`}
+                onClick={() => {
+                  navigator.clipboard.writeText(CLAIM_CODE)
+                  setCodeCopied(true)
+                  setTimeout(() => setCodeCopied(false), 2000)
+                }}
+              >
+                {codeCopied ? 'Copied!' : 'Copy'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   )
 }
