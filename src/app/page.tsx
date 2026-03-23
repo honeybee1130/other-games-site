@@ -105,7 +105,7 @@ export default function Home() {
   const [quizOpen, setQuizOpen] = useState(false)
   const [claimOpen, setClaimOpen] = useState(false)
   const [codeCopied, setCodeCopied] = useState(false)
-  const CLAIM_CODE = 'KINGMIMU'
+  const CLAIM_CODE = 'DN'
   const lenisRef = useRef<Lenis | null>(null)
 
   // Detect mobile
