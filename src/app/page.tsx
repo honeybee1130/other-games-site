@@ -739,6 +739,7 @@ export default function Home() {
               <span className="hero-line gradient-text">GAMES</span>
             </h1>
             <p className="hero-sub">Where brands come to tell their stories</p>
+            <p className="hero-sub" style={{fontSize: '0.85em', opacity: 0.7, marginTop: '0.5rem'}}>200 players. Real prizes. No wallet needed — sign in with email.</p>
           </div>
           {/* Scroll hint outside hero-content so it anchors to the hero section bottom */}
           <div className="hero-scroll-hint">
