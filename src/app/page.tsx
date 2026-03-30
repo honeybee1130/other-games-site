@@ -740,6 +740,31 @@ export default function Home() {
             </h1>
             <p className="hero-sub">Where brands come to tell their stories</p>
             <p className="hero-sub" style={{fontSize: '0.85em', opacity: 0.7, marginTop: '0.5rem'}}>200 players. Real prizes. No wallet needed — sign in with email.</p>
+            <a
+              href="https://otherside.xyz"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-block',
+                marginTop: '2rem',
+                padding: '1rem 2.5rem',
+                background: 'linear-gradient(135deg, #7c3aed, #a855f7)',
+                color: '#fff',
+                fontFamily: 'var(--font-mono, monospace)',
+                fontWeight: 700,
+                fontSize: '1rem',
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
+                textDecoration: 'none',
+                borderRadius: '4px',
+                boxShadow: '0 0 30px rgba(168,85,247,0.4)',
+                transition: 'box-shadow 0.2s, transform 0.2s',
+              }}
+              onMouseEnter={e => { (e.target as HTMLElement).style.boxShadow = '0 0 50px rgba(168,85,247,0.7)'; (e.target as HTMLElement).style.transform = 'translateY(-2px)' }}
+              onMouseLeave={e => { (e.target as HTMLElement).style.boxShadow = '0 0 30px rgba(168,85,247,0.4)'; (e.target as HTMLElement).style.transform = 'translateY(0)' }}
+            >
+              Play Saturday&apos;s Event →
+            </a>
           </div>
           {/* Scroll hint outside hero-content so it anchors to the hero section bottom */}
           <div className="hero-scroll-hint">
