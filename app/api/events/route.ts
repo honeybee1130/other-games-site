@@ -2,7 +2,12 @@
 // events as JSON. Cached/revalidated hourly so we hit the feed at most ~once
 // an hour regardless of traffic. The feed is a standard iCal (.ics) file.
 
-export const revalidate = 1800; // 30 minutes
+// Run per-request (never prerendered at build time — a build-time snapshot
+// goes stale and shows yesterday's events). The upstream .ics fetch below is
+// still cached for 30 minutes via the fetch data cache, so the feed is hit
+// at most ~twice an hour regardless of traffic.
+export const dynamic = 'force-dynamic';
+const FEED_REVALIDATE = 1800; // 30 minutes
 
 const FEED_URL = 'https://othersidecalendar.apechain.com/api/calendar/feed.ics';
 
@@ -82,14 +87,14 @@ function parseICS(text: string): CalEvent[] {
 
 export async function GET() {
   try {
-    const res = await fetch(FEED_URL, { next: { revalidate } });
+    const res = await fetch(FEED_URL, { next: { revalidate: FEED_REVALIDATE } });
     if (!res.ok) throw new Error(`feed ${res.status}`);
     const text = await res.text();
     const now = Date.now();
     const events = parseICS(text)
-      .filter((e) => e.start >= now)
+      .filter((e) => e.start >= now - 60 * 60 * 1000) // include events started <1h ago (likely still live)
       .sort((a, b) => a.start - b.start)
-      .slice(0, 6)
+      .slice(0, 10)
       .map((e) => ({
         uid: e.uid,
         summary: e.summary,

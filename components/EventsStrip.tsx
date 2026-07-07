@@ -23,7 +23,14 @@ export function EventsStrip() {
     let alive = true;
     fetch('/api/events')
       .then((r) => r.json())
-      .then((d) => { if (alive) setEvents(Array.isArray(d.events) ? d.events : []); })
+      .then((d) => {
+        if (!alive) return;
+        const list: CalEvent[] = Array.isArray(d.events) ? d.events : [];
+        // Defensive: even if a cached response is stale, never show past events
+        // (keep anything that started <1h ago — likely still live), max 6.
+        const cutoff = Date.now() - 60 * 60 * 1000;
+        setEvents(list.filter((e) => new Date(e.start).getTime() >= cutoff).slice(0, 6));
+      })
       .catch(() => { if (alive) setEvents([]); });
     return () => { alive = false; };
   }, []);
