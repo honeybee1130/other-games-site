@@ -70,6 +70,7 @@ export default function HomePage() {
           <a href="#work">Activations</a>
           <a href="#partners">Partners</a>
           <a href="#studio">Studio</a>
+          <Link href="/mag">Mag</Link>
           <a href="#start" className="nav-pill">Start a brief</a>
         </nav>
       </header>
@@ -91,6 +92,24 @@ export default function HomePage() {
               <a href="#start" className="button secondary">Build with us</a>
             </motion.div>
           </motion.div>
+
+          <motion.a
+            className="mag-sticker"
+            href="https://honeyb-ogmag.vercel.app"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Read OG MAG Vol. 01: LUCK"
+            initial={{ opacity: 0, scale: 0.6, rotate: -14 }}
+            animate={{ opacity: 1, scale: 1, rotate: -8 }}
+            transition={{ delay: 1, duration: 0.5, type: 'spring', bounce: 0.55 }}
+            whileHover={{ scale: 1.08, rotate: -4 }}
+          >
+            <Image src="/logos/apechurch.png" alt="" width={40} height={40} />
+            <span className="mag-sticker-text">
+              <b>OG LUCK</b>
+              <i>the mag is out — read it</i>
+            </span>
+          </motion.a>
 
           <motion.div className="hero-media" style={{ y: mediaY }}>
             <div className="media-frame large">
