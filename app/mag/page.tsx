@@ -5,7 +5,7 @@ import { mags } from '@/lib/mags';
 
 export const metadata: Metadata = {
   title: 'OG MAG — Other Games',
-  description: 'The Other Games magazine catalogue. One theme per volume. Real winners. Real dead.'
+  description: 'The Other Games magazine catalogue. One theme per volume.'
 };
 
 export default function MagPage() {
@@ -28,10 +28,10 @@ export default function MagPage() {
       <main className="mag-page">
         <div className="section-head wide mag-head">
           <span>OG MAG</span>
-          <h2>One theme per volume. Real winners. Real dead.</h2>
+          <h2>One theme per volume.</h2>
           <p>
-            The official Other Games magazine: field manuals for games of pure luck, printed ledgers of the
-            raptured and the fallen, ads nobody asked for, and free software of no practical value.
+            The Other Games magazine. Each volume is its own thing — a theme, a collab, an era.
+            Read them in the browser, free.
           </p>
         </div>
 
@@ -57,11 +57,11 @@ export default function MagPage() {
           <div className="mag-card mag-card-next">
             <div className="mag-cover mag-cover-empty">
               <span>VOL. 02</span>
-              <span className="mag-soon">theme sealed until it isn&apos;t</span>
+              <span className="mag-soon">theme tba</span>
             </div>
             <div className="mag-meta">
               <span className="mag-date">SOON</span>
-              <p>the catalogue grows after every era. the ledger never shrinks.</p>
+              <p>the catalogue grows as we make them.</p>
             </div>
           </div>
         </div>
