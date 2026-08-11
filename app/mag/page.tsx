@@ -28,10 +28,10 @@ export default function MagPage() {
       <main className="mag-page">
         <div className="section-head wide mag-head">
           <span>OG MAG</span>
-          <h2>One theme per volume.</h2>
+          <h2>A magazine. Sometimes.</h2>
           <p>
-            The Other Games magazine. Each volume is its own thing — a theme, a collab, an era.
-            Read them in the browser, free.
+            one theme per volume. done completely, then abandoned. free to read.
+            being featured in one costs more than you think.
           </p>
         </div>
 
@@ -61,7 +61,7 @@ export default function MagPage() {
             </div>
             <div className="mag-meta">
               <span className="mag-date">SOON</span>
-              <p>the catalogue grows as we make them.</p>
+              <p>the catalogue grows when something happens to enough people.</p>
             </div>
           </div>
         </div>
